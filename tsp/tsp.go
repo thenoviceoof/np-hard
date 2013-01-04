@@ -18,16 +18,16 @@ import (
 // UTILITIES
 
 // this will probably eventually go in a utility file
-func read_points_from_stdin() ([][]float64, error) {
+func read_points_from_file(file io.Reader) ([][]float64, error) {
 	var x, y float64
 	points := make([][]float64, 0, 100)
 	for i := 0;; i++ {
 		// read pairs of floats for now
-		_, err := fmt.Scanf("%f %f", &x, &y)
+		n, err := fmt.Fscanf(file, "%f %f", &x, &y)
 		if err == io.EOF {
 			break
 		}
-		if err != nil {
+		if err != nil || n != 2 {
 			return nil, err
 		}
 		// check the capacity
@@ -40,6 +40,10 @@ func read_points_from_stdin() ([][]float64, error) {
 		points[i] = []float64{x, y}
 	}
 	return points, nil
+}
+
+func read_points_from_stdin() ([][]float64, error) {
+	return read_points_from_file(os.Stdin)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -132,7 +136,12 @@ func main() {
 	// get the list of points (maybe also a graph)
 	points, err := read_points_from_stdin()
 	if err != nil {
-		return
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	if points == nil {
+		fmt.Println("No points input")
+		os.Exit(2)
 	}
 	// solve it
 	switch {
@@ -140,7 +149,7 @@ func main() {
 		points = brute_force_tsp(points)
 	default:
 		fmt.Println("No algorithm selected.")
-		os.Exit(1)
+		os.Exit(3)
 	}
 	// print it out
 	fmt.Println(points)

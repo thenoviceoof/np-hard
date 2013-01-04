@@ -4,12 +4,14 @@
 // find an order in which 
 // future iterations
 
-package tsp
+package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"math"
+	"os"
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -117,16 +119,29 @@ func brute_force_tsp(points [][]float64) [][]float64 {
 	return cur_points
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Runtime things
+
+// algo types
+var brute_flag = flag.Bool("brute", false, `Brute force searcher
+	Time: O(n!) Space: O(n)`)
+
 func main() {
 	// parse the command line options
-	// NOTHING YET
+	flag.Parse()
 	// get the list of points (maybe also a graph)
 	points, err := read_points_from_stdin()
 	if err != nil {
 		return
 	}
 	// solve it
-	route := brute_force_tsp(points)
+	switch {
+	case *brute_flag:
+		points = brute_force_tsp(points)
+	default:
+		fmt.Println("No algorithm selected.")
+		os.Exit(1)
+	}
 	// print it out
-	fmt.Println(route)
+	fmt.Println(points)
 }

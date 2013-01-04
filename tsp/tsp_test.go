@@ -1,6 +1,6 @@
 // currently, test the utils and TSP brute forcer
 
-package tsp
+package main
 
 import (
 	"fmt"

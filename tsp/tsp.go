@@ -20,7 +20,7 @@ const error_option = 2
 
 // algo types
 var flag_algo_brute = flag.Bool("brute", false,
-	`Brute force searcher: slow and obvious
+	`Brute force searcher: slow but exact
 	 Time: O(n!) Space: O(n)
 		Multithreaded by default, turn off with -single-core`)
 var flag_algo_nn = flag.Bool("nearest-neighbor", false,

@@ -8,6 +8,9 @@ import (
 	"../utils"
 )
 
+//------------------------------------------------------------------------------
+// test runners
+
 func run_TSP_fn(name string, t *testing.T, points [][]float64,
 	f func([][]float64) [][]float64, optimal_length float64) {
 	pts := f(points)
@@ -39,6 +42,9 @@ func run_approx_TSP_fn(name string, t *testing.T, points [][]float64,
 			optimal_length)
 	}
 }
+
+//------------------------------------------------------------------------------
+// Tests
 
 func TestSimplePath(t *testing.T) {
 	var path_length float64 = 3

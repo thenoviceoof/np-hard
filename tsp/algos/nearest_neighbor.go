@@ -6,7 +6,7 @@ import (
 )
 
 // use the nearest neighbor heuristic
-func NearestNeighborTSP(points [][]float64) [][]float64 {
+func NearestNeighbor(points [][]float64) [][]float64 {
 	var min_pts [][]float64
 	var min_len float64 = math.Inf(1)
 	// for each point as starting point, run the NN heuristic

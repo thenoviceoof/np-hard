@@ -6,7 +6,7 @@ import (
 )
 
 // brute force: list all possible permutations of the points
-func BruteForceTSP(points [][]float64) [][]float64 {
+func BruteForce(points [][]float64) [][]float64 {
 	// make a list of indicies to permute
 	inds := make([]int, len(points))
 	for i, _ := range inds {

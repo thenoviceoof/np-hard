@@ -48,9 +48,9 @@ func main() {
 	// solve it
 	switch {
 	case *flag_algo_brute:
-		points = algos.BruteForceTSP(points)
+		points = algos.BruteForce(points)
 	case *flag_algo_nn:
-		points = algos.NearestNeighborTSP(points)
+		points = algos.NearestNeighbor(points)
 	default:
 		fmt.Fprintln(os.Stderr, "No algorithm selected.")
 		os.Exit(2)

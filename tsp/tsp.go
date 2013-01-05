@@ -22,7 +22,7 @@ import (
 var flag_algo_brute = flag.Bool("brute", false,
 	`Brute force searcher: slow and obvious
 	 Time: O(n!) Space: O(n)
-		Guaranteed to be correct`)
+		Multithreaded by default, turn off with -single-core`)
 var flag_algo_nn = flag.Bool("nearest-neighbor", false,
 	`Nearest Neighbor heuristic: fast and approximate
 	 Time: O(n**3) Space: O(n)
@@ -30,6 +30,10 @@ var flag_algo_nn = flag.Bool("nearest-neighbor", false,
 	 [Johnson, D.S. and McGeoch, L.A.. "The traveling salesman problem:
 	 A case study in local optimization", Local search in combinatorial
 	 optimization, 1997, 215-310]`)
+
+// option flags
+var flag_single_core = flag.Bool("single-core", false,
+	"Disable multithreading")
 
 func main() {
 	// parse the command line options
@@ -47,8 +51,10 @@ func main() {
 	}
 	// solve it
 	switch {
-	case *flag_algo_brute:
+	case *flag_algo_brute && *flag_single_core:
 		points = algos.BruteForce(points)
+	case *flag_algo_brute:
+		points = algos.BruteForceMT(points)
 	case *flag_algo_nn:
 		points = algos.NearestNeighbor(points)
 	default:

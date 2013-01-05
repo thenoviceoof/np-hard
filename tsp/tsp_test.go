@@ -12,8 +12,8 @@ import (
 // 	// TODO
 // }
 
-func Test_brute_force_tsp(t *testing.T) {
-	pts := [][]float64{
+func Test_simple_path(t *testing.T) {
+	points := [][]float64{
 		{0, 0},
 		{3, 0},
 		{1, 0},
@@ -25,11 +25,19 @@ func Test_brute_force_tsp(t *testing.T) {
 		{2, 0},
 		{3, 0},
 	}
-	pts = brute_force_tsp(pts)
+	pts := brute_force_tsp(points)
 	for i, v := range pts {
 		if fmt.Sprintf("%v", v) != fmt.Sprintf("%v", result[i]) {
 			t.Errorf("Got %v instead of %v", pts, result)
 			break
-		}	
+		}
+	}
+
+	pts = nearest_neighbor_tsp(points)
+	for i, v := range pts {
+		if fmt.Sprintf("%v", v) != fmt.Sprintf("%v", result[i]) {
+			t.Errorf("Got %v instead of %v", pts, result)
+			break
+		}
 	}
 }

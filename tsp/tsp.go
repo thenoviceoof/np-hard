@@ -4,6 +4,10 @@
 // find an order in which 
 // future iterations
 
+// error codes:
+// 1 - problem with I/O
+// 2 - problem with command line options
+
 package main
 
 import (
@@ -133,23 +137,24 @@ var brute_flag = flag.Bool("brute", false, `Brute force searcher
 func main() {
 	// parse the command line options
 	flag.Parse()
+
 	// get the list of points (maybe also a graph)
 	points, err := read_points_from_stdin()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 	if points == nil {
-		fmt.Println("No points input")
-		os.Exit(2)
+		fmt.Fprintln(os.Stderr, "No points input")
+		os.Exit(1)
 	}
 	// solve it
 	switch {
 	case *brute_flag:
 		points = brute_force_tsp(points)
 	default:
-		fmt.Println("No algorithm selected.")
-		os.Exit(3)
+		fmt.Fprintln(os.Stderr, "No algorithm selected.")
+		os.Exit(2)
 	}
 	// print it out
 	fmt.Println(points)

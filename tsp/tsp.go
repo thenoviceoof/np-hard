@@ -62,6 +62,15 @@ func dist(x, y []float64) float64 {
 	return math.Sqrt(sum)
 }
 
+// go through a path, add up all the distances between the points sequentially
+func path_dist(points [][]float64) float64 {
+	var cur_len float64 = 0
+	for i := 0; i < len(points) - 1; i++ {
+		cur_len += dist(points[i], points[i+1])
+	}
+	return cur_len
+}
+
 // from http://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order
 func permute_indicies(inds []int) []int {
 	var k, l int

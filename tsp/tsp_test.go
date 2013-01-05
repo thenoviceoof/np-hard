@@ -17,14 +17,21 @@ func TestSimplePath(t *testing.T) {
 		{2, 0},
 	}
 
-	pts := algos.BruteForceTSP(points)
+	pts := algos.BruteForce(points)
 	if utils.PathLength(pts) != path_length {
 		t.Errorf("Brute: Got %v with path length %d/%d", pts,
 			utils.PathLength(pts),
 			path_length)
 	}
 
-	pts = algos.NearestNeighborTSP(points)
+	pts = algos.BruteForceMT(points)
+	if utils.PathLength(pts) != path_length {
+		t.Errorf("Brute: Got %v with path length %d/%d", pts,
+			utils.PathLength(pts),
+			path_length)
+	}
+
+	pts = algos.NearestNeighbor(points)
 	if utils.PathLength(pts) != path_length {
 		t.Errorf("NN: Got %v with path length %d/%d", pts,
 			utils.PathLength(pts),

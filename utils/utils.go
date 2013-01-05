@@ -56,7 +56,7 @@ func Dist(x, y []float64) float64 {
 
 // NOT USED CURRENTLY
 // go through a path, add up all the distances between the points sequentially
-func path_dist(points [][]float64) float64 {
+func PathLength(points [][]float64) float64 {
 	var cur_len float64 = 0
 	for i := 0; i < len(points) - 1; i++ {
 		cur_len += Dist(points[i], points[i+1])

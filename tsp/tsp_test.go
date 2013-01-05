@@ -3,42 +3,31 @@
 package main
 
 import (
-	"fmt"
-	"testing"
 	"./algos"
+	"testing"
+	"../utils"
 )
 
-// func Test_read_points_from_stdin() {
-// 	p1s := [][]float64{{1, 2}, {2, 3}}
-// 	// TODO
-// }
-
 func TestSimplePath(t *testing.T) {
+	var path_length float64 = 3
 	points := [][]float64{
 		{0, 0},
 		{3, 0},
 		{1, 0},
 		{2, 0},
 	}
-	result := [][]float64{
-		{0, 0},
-		{1, 0},
-		{2, 0},
-		{3, 0},
-	}
+
 	pts := algos.BruteForceTSP(points)
-	for i, v := range pts {
-		if fmt.Sprintf("%v", v) != fmt.Sprintf("%v", result[i]) {
-			t.Errorf("Got %v instead of %v", pts, result)
-			break
-		}
+	if utils.PathLength(pts) != path_length {
+		t.Errorf("Brute: Got %v with path length %d/%d", pts,
+			utils.PathLength(pts),
+			path_length)
 	}
 
 	pts = algos.NearestNeighborTSP(points)
-	for i, v := range pts {
-		if fmt.Sprintf("%v", v) != fmt.Sprintf("%v", result[i]) {
-			t.Errorf("Got %v instead of %v", pts, result)
-			break
-		}
+	if utils.PathLength(pts) != path_length {
+		t.Errorf("NN: Got %v with path length %d/%d", pts,
+			utils.PathLength(pts),
+			path_length)
 	}
 }

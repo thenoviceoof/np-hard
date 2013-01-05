@@ -4,10 +4,6 @@
 // find an order in which 
 // future iterations
 
-// error codes:
-// 1 - problem with I/O
-// 2 - problem with command line options
-
 package main
 
 import (
@@ -17,6 +13,10 @@ import (
 	"../utils"
 	"./algos"
 )
+
+// error codes
+const error_io = 1
+const error_option = 2
 
 // algo types
 var flag_algo_brute = flag.Bool("brute", false,
@@ -43,11 +43,11 @@ func main() {
 	points, err := utils.ReadPointsFromStdin()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		os.Exit(error_io)
 	}
 	if points == nil {
 		fmt.Fprintln(os.Stderr, "No points input")
-		os.Exit(1)
+		os.Exit(error_io)
 	}
 	// solve it
 	switch {
@@ -59,7 +59,7 @@ func main() {
 		points = algos.NearestNeighbor(points)
 	default:
 		fmt.Fprintln(os.Stderr, "No algorithm selected.")
-		os.Exit(2)
+		os.Exit(error_option)
 	}
 	// print it out
 	fmt.Println(points)

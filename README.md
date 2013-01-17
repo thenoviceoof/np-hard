@@ -3,6 +3,10 @@ np-hard
 
 A collection of UNIX utilities that solve various NP hard problems
 
+Similar to the way grep solves search in a composable manner, these
+utilities should be repositories of exact and heuristic solutions to
+hard problems that have shell-composable line-oriented interfaces.
+
 Currently the only utility included is a Travelling Salesman Problem
 solver in the tsp/ directory, but the idea is to eventually cover
 several popular NP-hard problems.
